@@ -19,7 +19,7 @@ class UserController extends Controller
     public function verifiy(VerifiyRequest $request){
         $code  = Verification_code::where('user_id',auth()->user()->id)->first();
         if( ($request['code'] == $code->code) && (auth()->user()->id == $code->user_id) ){
-            User::find(auth()->user()->id)->first()->update( ['email_verified_at' => now()]);
+            User::find(auth()->user()->id)->update( ['email_verified_at' => now()]);
             $code->delete();
             return success_response();
         }
